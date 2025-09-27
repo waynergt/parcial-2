@@ -8,30 +8,53 @@ interface Props {
 
 export default function Card({ post, onEdit, onDelete }: Props) {
   return (
-    <div className="
-      bg-soft
-      shadow-lg rounded-xl border-2 border-info p-5
-      transition-all hover:scale-105 hover:shadow-xl
-      flex flex-col justify-between min-h-[150px]
-    ">
+    <div
+      className="
+        bg-gradient-to-br from-white via-gray-50 to-gray-100
+        shadow-xl rounded-2xl border border-gray-200 p-6
+        transition-all duration-300 ease-in-out
+        hover:scale-105 hover:shadow-2xl
+        flex flex-col justify-between min-h-[180px]
+      "
+    >
       <div>
-        <h3 className="text-lg font-bold text-info mb-2">{post.title}</h3>
-        <p className="text-gray-700">{post.body}</p>
+        <h3 className="text-xl font-extrabold text-indigo-600 mb-3 tracking-wide">
+          {post.title}
+        </h3>
+        <p className="text-gray-600 leading-relaxed">{post.body}</p>
       </div>
-      <div className="flex justify-between items-end mt-4">
-        <span className="text-sm text-primary font-semibold">Identificación: {post.id}</span>
-        <div className="flex gap-2">
+
+      <div className="flex justify-between items-end mt-6">
+        <span className="text-sm text-gray-500 font-medium italic">
+          Identificación: <span className="text-indigo-500 font-semibold">{post.id}</span>
+        </span>
+
+        <div className="flex gap-3">
           {onEdit && (
             <button
-              className="px-3 py-1 bg-success text-white rounded-lg shadow hover:bg-info transition"
+              className="
+                px-4 py-2 bg-gradient-to-r from-emerald-500 to-green-600
+                text-white font-semibold rounded-xl shadow-md
+                hover:from-indigo-500 hover:to-purple-600
+                transition duration-300 ease-in-out transform hover:-translate-y-1
+              "
               onClick={onEdit}
-            >Editar</button>
+            >
+              ✏️ Editar
+            </button>
           )}
           {onDelete && (
             <button
-              className="px-3 py-1 bg-accent text-white rounded-lg shadow hover:bg-warning hover:text-primary transition"
+              className="
+                px-4 py-2 bg-gradient-to-r from-rose-500 to-red-600
+                text-white font-semibold rounded-xl shadow-md
+                hover:from-orange-500 hover:to-yellow-500 hover:text-black
+                transition duration-300 ease-in-out transform hover:-translate-y-1
+              "
               onClick={onDelete}
-            >Eliminar</button>
+            >
+              🗑️ Eliminar
+            </button>
           )}
         </div>
       </div>
