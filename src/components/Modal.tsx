@@ -28,54 +28,60 @@ export default function Modal({
 
   return (
     <div
-      className="fixed inset-0 bg-black/60 dark:bg-black/80 z-50 flex items-center justify-center backdrop-blur-sm"
+      className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
       onClick={onClose}
     >
       <div
         className="
-          bg-gradient-to-br from-white via-gray-50 to-gray-100
-          dark:from-gray-800 dark:via-gray-900 dark:to-black
-          rounded-2xl p-6 shadow-2xl min-w-[320px] max-w-lg relative
-          transition-transform duration-300 ease-out animate-fadeIn
+          w-full max-w-lg
+          bg-white dark:bg-gray-900
+          rounded-2xl shadow-2xl overflow-hidden
+          transform transition-all duration-300 animate-fadeIn
+          max-h-[90vh] flex flex-col
         "
         onClick={(e) => e.stopPropagation()}
-        tabIndex={-1}
       >
-        {/* Botón cerrar */}
-        <button
-          className="
-            absolute top-3 right-3 text-gray-400 hover:text-red-500
-            dark:hover:text-red-400 text-2xl font-bold transition
-          "
-          aria-label="Cerrar"
-          onClick={onClose}
-        >
-          ×
-        </button>
+        {/* Encabezado */}
+        <div className="flex justify-between items-center px-6 py-4 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-indigo-500 to-purple-600">
+          {title && (
+            <h2 className="text-lg md:text-xl font-bold text-white">
+              {title}
+            </h2>
+          )}
+          <button
+            className="text-white text-2xl font-bold hover:scale-110 transition"
+            aria-label="Cerrar"
+            onClick={onClose}
+          >
+            ×
+          </button>
+        </div>
 
+        {/* Botón regresar opcional */}
         {onBack && (
           <button
-            className="
-              mb-4 bg-gradient-to-r from-indigo-500 to-purple-600
-              text-white px-4 py-2 rounded-xl shadow-md
-              hover:from-emerald-500 hover:to-green-600
-              transition duration-300 ease-in-out
-            "
+            className="m-4 mb-0 bg-info text-white px-3 py-2 rounded shadow hover:bg-primary transition"
             aria-label="Regresar"
             onClick={onBack}
-            style={{ display: "block" }}
           >
             {backText}
           </button>
         )}
 
-        {title && (
-          <h2 className="text-2xl font-bold mb-4 text-indigo-600 dark:text-indigo-400">
-            {title}
-          </h2>
-        )}
+        {/* Contenido con scroll */}
+        <div className="px-6 py-5 space-y-4 text-gray-700 dark:text-gray-200 overflow-y-auto">
+          {children}
+        </div>
 
-        <div className="text-gray-700 dark:text-gray-200">{children}</div>
+        {/* Footer opcional */}
+        <div className="flex justify-end gap-3 px-6 py-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+          <button
+            className="px-4 py-2 rounded-lg bg-gray-300 hover:bg-gray-400 text-gray-900 font-semibold transition dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+            onClick={onClose}
+          >
+            Cerrar
+          </button>
+        </div>
       </div>
     </div>
   );
