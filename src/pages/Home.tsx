@@ -37,9 +37,7 @@ export default function Home() {
     try {
       await updatePost(editPost.id, values);
       setPosts(posts =>
-        posts.map(p =>
-          p.id === editPost.id ? { ...p, ...values } : p
-        )
+        posts.map(p => (p.id === editPost.id ? { ...p, ...values } : p))
       );
       setEditPost(null);
     } catch {
@@ -64,13 +62,13 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen px-4 py-8 bg-soft">
-      <div className="flex flex-wrap justify-between items-center mb-8 gap-4">
-        <h1 className="text-4xl font-extrabold text-primary drop-shadow mb-8">
-          Lista de publicaciones
+    <main className="min-h-screen px-4 py-10 bg-gradient-to-br from-white via-gray-50 to-gray-100 dark:from-gray-900 dark:via-gray-950 dark:to-black">
+      <div className="flex flex-wrap justify-between items-center mb-10 gap-4">
+        <h1 className="text-4xl font-extrabold text-indigo-600 dark:text-indigo-400 drop-shadow">
+          📚 Lista de publicaciones
         </h1>
         <button
-          className="bg-info text-white font-bold px-6 py-2 rounded-xl shadow-lg hover:bg-success transition"
+          className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold px-6 py-2 rounded-xl shadow-lg hover:from-emerald-500 hover:to-green-600 transition duration-300"
           onClick={() => navigate("/nuevo")}
         >
           + Añadir
@@ -81,35 +79,64 @@ export default function Home() {
         <input
           type="search"
           placeholder="🔍 Buscar por título..."
-          className="border-2 border-info px-4 py-2 rounded-lg focus:outline-success bg-white text-primary shadow w-full transition"
+          className="border-2 border-indigo-400 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 shadow-md w-full transition"
           value={search}
           onChange={e => setSearch(e.target.value)}
         />
       </div>
 
-      {loading && <p className="text-primary">Cargando...</p>}
-      {error && <p className="text-accent">{error}</p>}
+      {loading && <p className="text-indigo-500">Cargando...</p>}
+      {error && <p className="text-red-500">{error}</p>}
 
-      {!loading && <Table posts={paginated} onEdit={setEditPost} onDelete={p => setDeletePostId(p.id)} />}
-      <Pagination page={page} setPage={setPage} total={filtered.length} pageSize={pageSize} />
+      {!loading && (
+        <Table
+          posts={paginated}
+          onEdit={setEditPost}
+          onDelete={p => setDeletePostId(p.id)}
+        />
+      )}
+      <Pagination
+        page={page}
+        setPage={setPage}
+        total={filtered.length}
+        pageSize={pageSize}
+      />
 
-      <Modal open={!!editPost} onClose={() => setEditPost(null)} onBack={() => setEditPost(null)} title="Editar publicación">
-        {editPost &&
-          <PostForm
-            initial={editPost}
-            onSubmit={handleEdit}
-            loading={loading}
-          />}
+      {/* Modal Editar */}
+      <Modal
+        open={!!editPost}
+        onClose={() => setEditPost(null)}
+        onBack={() => setEditPost(null)}
+        title="✏️ Editar publicación"
+      >
+        {editPost && (
+          <PostForm initial={editPost} onSubmit={handleEdit} loading={loading} />
+        )}
       </Modal>
 
-      <Modal open={!!deletePostId} onClose={() => setDeletePostId(null)} onBack={() => setDeletePostId(null)} title="¿Eliminar publicación?">
+      {/* Modal Eliminar */}
+      <Modal
+        open={!!deletePostId}
+        onClose={() => setDeletePostId(null)}
+        onBack={() => setDeletePostId(null)}
+        title="🗑️ ¿Eliminar publicación?"
+      >
         <div className="flex flex-col gap-4">
-          <p className="text-primary">¿Seguro que quieres eliminar este post?</p>
-          <div className="flex gap-2">
-            <button className="bg-accent text-white px-4 py-2 rounded hover:bg-warning hover:text-primary transition" onClick={handleDelete} disabled={loading}>
+          <p className="text-gray-700 dark:text-gray-200">
+            ¿Seguro que quieres eliminar este post?
+          </p>
+          <div className="flex gap-3">
+            <button
+              className="bg-gradient-to-r from-red-500 to-rose-600 text-white px-4 py-2 rounded-xl shadow-md hover:from-orange-500 hover:to-yellow-500 hover:text-black transition"
+              onClick={handleDelete}
+              disabled={loading}
+            >
               Sí, eliminar
             </button>
-            <button className="bg-card text-primary px-4 py-2 rounded hover:bg-info transition" onClick={() => setDeletePostId(null)}>
+            <button
+              className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-xl shadow hover:bg-indigo-500 hover:text-white transition"
+              onClick={() => setDeletePostId(null)}
+            >
               Cancelar
             </button>
           </div>

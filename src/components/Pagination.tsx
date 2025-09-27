@@ -8,27 +8,38 @@ interface Props {
 export default function Pagination({ page, setPage, total, pageSize = 9 }: Props) {
   const pages = Math.ceil(total / pageSize);
   if (pages <= 1) return null;
+
   return (
-    <div className="flex justify-center gap-2 my-8">
+    <div className="flex justify-center gap-2 my-10">
       <button
-        className="px-4 py-2 rounded bg-info text-white font-bold hover:bg-success transition disabled:opacity-40"
+        className="px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold shadow hover:from-emerald-500 hover:to-green-600 transition disabled:opacity-40"
         onClick={() => setPage(page - 1)}
         disabled={page === 1}
-      >Anterior</button>
+      >
+        ← Anterior
+      </button>
+
       {Array.from({ length: pages }, (_, i) => (
         <button
           key={i}
-          className={`px-3 py-1 rounded font-bold transition
-            ${page === i + 1 ? "bg-accent text-white shadow" : "bg-card text-primary hover:bg-info"}
-          `}
+          className={`px-3 py-1 rounded-xl font-semibold transition shadow ${
+            page === i + 1
+              ? "bg-gradient-to-r from-rose-500 to-red-600 text-white"
+              : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-indigo-500 hover:text-white"
+          }`}
           onClick={() => setPage(i + 1)}
-        >{i + 1}</button>
+        >
+          {i + 1}
+        </button>
       ))}
+
       <button
-        className="px-4 py-2 rounded bg-info text-white font-bold hover:bg-success transition disabled:opacity-40"
+        className="px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold shadow hover:from-emerald-500 hover:to-green-600 transition disabled:opacity-40"
         onClick={() => setPage(page + 1)}
         disabled={page === pages}
-      >Siguiente</button>
+      >
+        Siguiente →
+      </button>
     </div>
   );
 }

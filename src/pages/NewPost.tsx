@@ -21,17 +21,17 @@ export default function NewPost() {
   };
 
   return (
-    <main className="min-h-screen px-4 py-8 bg-soft">
+    <main className="min-h-screen px-4 py-10 bg-gradient-to-br from-white via-gray-50 to-gray-100 dark:from-gray-900 dark:via-gray-950 dark:to-black">
       <button
-        className="mb-6 bg-info text-black px-4 py-2 rounded shadow hover:bg-primary transition"
+        className="mb-6 bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-4 py-2 rounded-xl shadow hover:from-emerald-500 hover:to-green-600 transition"
         onClick={() => navigate("/")}
       >
         ← Regresar a la lista
       </button>
-      <h1 className="text-3xl font-bold mb-6 text-primary">
-        Nueva publicación
+      <h1 className="text-3xl font-bold mb-6 text-indigo-600 dark:text-indigo-400">
+        📝 Nueva publicación
       </h1>
-      {error && <p className="text-accent mb-4">{error}</p>}
+      {error && <p className="text-red-500 mb-4">{error}</p>}
       <PostForm onSubmit={handleSubmit} loading={loading} />
     </main>
   );
