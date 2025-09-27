@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+
+body {
+  /* Fondo elegante con gradiente */
+  background: linear-gradient(120deg, #3b82f6 12%, #f3f4f6 70%, #22c55e 100%);
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  color: #1e293b;
+}
